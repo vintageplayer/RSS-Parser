@@ -193,15 +193,11 @@ def process_records(content):
 	
 	print(f"Total Records Found: {record_count}. Currently present: {current_max}")
 
-	if current_max > 0:
-		content = content[:-current_max]
-
-
-	for data in map(parse_record,content):
+	for data in map(parse_record,content[record_count-current_max-1::-1]):
 		records[int(data['itunes']['episode'])] = data
 
-	for k in sorted(records):
-		print(k)
+	# for k in sorted(records):
+		# print(k)
 
 	return records
 
