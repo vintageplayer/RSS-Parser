@@ -20,9 +20,9 @@ docker run -dt --name rss-python \
 	conda/miniconda3-centos6 bash
 
 docker exec rss-python conda update -c base -c defaults conda
-docker exec rss-python conda install beautifulsoup4
-docker exec rss-python conda install lxml
-docker exec rss-python conda install psycopg2
+docker exec rss-python conda install beautifulsoup4 lxml psycopg2
+docker exec rss-python conda install -c conda-forge apscheduler
 
 docker exec -it rss-postgres psql -U postgres -d audioboom -f create_db.sql
-docker exec rss-python python main.py
+
+docker exec -d rss-python python main.py

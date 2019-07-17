@@ -13,6 +13,8 @@ def get_soup(url):
 
 def parse_record(record):
 	details		= {}
+	details['itunes']	= {}
+	details['media'] = []
 	# for tag in record.find_all():
 		# tag_name = re.sub('[:]','_',tag.name)
 		# details[tag_name] = tag.text
@@ -32,10 +34,15 @@ def parse_record(record):
 	try:	details['enclosure_length']	= record.find('enclosure')['length']
 	except Exception as e: details['enclosure_length'] = None
 
-	details['media'] = []
+	try:	details['itunes']['episode']	= record.find('itunes:episode').text
+	except Exception as e: details['itunes']['episode'] = None
+
+	details['itunes_episode'] = details['itunes']['episode']
 
 	for media in record.find_all('media:content'):
 		media_data	= {}
+		media_data['itunes_episode'] = details['itunes']['episode']
+
 		try:	media_data['url']	= media['url']
 		except Exception as e: media_data['url'] = None
 
@@ -53,16 +60,11 @@ def parse_record(record):
 
 		details['media'].append(media_data)
 
-	details['itunes']	= {}
-
-	try:	details['itunes']['episode']	= record.find('itunes:episode').text
-	except Exception as e: details['itunes']['episode'] = None
-
 	try:	details['itunes']['title']	= record.find('itunes:title').text
 	except Exception as e: details['itunes']['title'] = None
 
-	try:	details['itunes']['image_href']	= record.find('itunes:image')['href']
-	except Exception as e: details['itunes']['image_href'] = None
+	try:	details['itunes']['image_link']	= record.find('itunes:image')['href']
+	except Exception as e: details['itunes']['image_link'] = None
 
 	try:	details['itunes']['duration']	= record.find('itunes:duration').text
 	except Exception as e: details['itunes']['duration'] = None
@@ -97,8 +99,8 @@ def parse_record(record):
 	try:	details['pubDate']	= record.find('pubDate').text
 	except Exception as e: details['pubDate'] = None
 
-	try:	details['content_encoded']	= record.find('content:encoded').text
-	except Exception as e: details['content_encoded'] = None
+	# try:	details['content_encoded']	= record.find('content:encoded').text
+	# except Exception as e: details['content_encoded'] = None
 
 	return details
 
