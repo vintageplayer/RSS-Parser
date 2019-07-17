@@ -1,0 +1,1 @@
+{"database": "audioboom", "user": "postgres", "password": "parserssfeed", "host": "rss-postgres", "port": "5432"}
