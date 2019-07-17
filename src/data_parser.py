@@ -35,23 +35,23 @@ def parse_record(record):
 	details['media'] = []
 
 	for media in record.find_all('media:content'):
-		media	= {}
-		try:	media['url']	= record.find('media:content')['url']
-		except Exception as e: media['url'] = None
+		media_data	= {}
+		try:	media_data['url']	= media['url']
+		except Exception as e: media_data['url'] = None
 
-		try:	media['type']	= record.find('media:content')['type']
-		except Exception as e: media['type'] = None
+		try:	media_data['type']	= media['type']
+		except Exception as e: media_data['type'] = None
 
-		try:	media['duration']	= record.find('media:content')['duration']
-		except Exception as e: media['duration'] = None
+		try:	media_data['duration']	= media['duration']
+		except Exception as e: media_data['duration'] = None
 
-		try:	media['lang']	= record.find('media:content')['lang']
-		except Exception as e: media['lang'] = None
+		try:	media_data['lang']	= media['lang']
+		except Exception as e: media_data['lang'] = None
 
-		try:	media['medium']	= record.find('media:content')['medium']
-		except Exception as e: media['medium'] = None	
+		try:	media_data['medium']	= media['medium']
+		except Exception as e: media_data['medium'] = None	
 
-		details['media'].append(media)
+		details['media'].append(media_data)
 
 	details['itunes']	= {}
 
@@ -91,7 +91,7 @@ def parse_record(record):
 	try:	details['dc_creator']	= record.find('dc:creator').text
 	except Exception as e: details['dc_creator'] = None
 
-	try:	details['media_rights']	= record.find('media:rights').text
+	try:	details['media_rights']	= record.find('media:rights')['status']
 	except Exception as e: details['media_rights'] = None
 
 	try:	details['pubDate']	= record.find('pubDate').text
