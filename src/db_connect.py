@@ -3,7 +3,7 @@ import json
 
 
 def get_connection(file):
-	with open('connection.json') as inFile:
+	with open(file) as inFile:
 		creds	= json.load(inFile)
 
 	database	= creds['database']
@@ -16,5 +16,17 @@ def get_connection(file):
 
 	return connection
 
-def execute_query(conn,query_string):
-	return
+
+def get_max_records(conn,query):
+	cursor	= conn.cursor()
+	cursor.execute(query)
+	record = cursor.fetchone()
+	print('Record received: ',record)
+	cursor.close()
+	return record
+
+if __name__ == '__main__':
+	get_max_query = 'SELECT COALESCE(max(episode),0) FROM tasteofindia.itunes_data;'
+	# insert_query = 'INSERT INTO '
+	conn = get_connection('connection.json')
+	get_max_records(conn,get_max_query)

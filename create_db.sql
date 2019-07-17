@@ -2,6 +2,8 @@ BEGIN;
 
 CREATE SCHEMA tasteofindia;
 
+GRANT ALL ON SCHEMA tasteofindia TO postgres;
+
 CREATE TABLE tasteofindia.itunes_data
 (
 	episode INT PRIMARY KEY
@@ -14,6 +16,7 @@ CREATE TABLE tasteofindia.itunes_data
 	,subtitle VARCHAR(512)
 	,summary VARCHAR(512)
 );
+
 
 CREATE TABLE tasteofindia.media
 (
@@ -42,5 +45,7 @@ CREATE TABLE tasteofindia.posts
 	,content_encoded VARCHAR(512)
 	,FOREIGN KEY (itunes_episode) REFERENCES tasteofindia.itunes_data(episode)
 );
+
+GRANT ALL ON ALL TABLES IN SCHEMA tasteofindia TO postgres;
 
 COMMIT;
