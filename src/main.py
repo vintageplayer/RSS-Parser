@@ -1,17 +1,21 @@
 from data_parser import get_soup, parse_record, store_tags
 from db_connect import get_connection,get_max_records
 
+get_max_query = 'SELECT COALESCE(max(episode),0) FROM tasteofindia.itunes_data;'
 
 def process_records(content,conn):
 	record_count	= len(content)
-	current_max		= 0
+
+	current_max		= get_max_records(conn,get_max_query)
+	print('Current Max : ',current_max)
+
 	records = {}
 
 	if record_count == current_max:
 		print("No new records found!!")
 		return records
-	
-	# print(f"Total Records Found: {record_count}. Currently present: {current_max}")
+
+	print(f"Total Records Found: {record_count}. Currently present: {current_max}")
 
 	for data in map(parse_record,content[record_count-current_max-1::-1]):
 		records[int(data['itunes']['episode'])] = data
