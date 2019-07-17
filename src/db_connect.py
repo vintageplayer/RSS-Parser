@@ -23,10 +23,9 @@ def get_max_records(conn,query):
 	record = cursor.fetchone()
 	print('Record received: ',record)
 	cursor.close()
-	return record
+	return record[0]
 
 if __name__ == '__main__':
 	get_max_query = 'SELECT COALESCE(max(episode),0) FROM tasteofindia.itunes_data;'
-	# insert_query = 'INSERT INTO '
 	conn = get_connection('connection.json')
-	get_max_records(conn,get_max_query)
+	print(get_max_records(conn,get_max_query))

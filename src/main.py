@@ -1,5 +1,5 @@
 from data_parser import get_soup, parse_record, store_tags
-from db_connect import get_connection,
+from db_connect import get_connection,get_max_records
 
 
 def process_records(content,conn):

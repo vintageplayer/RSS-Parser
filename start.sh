@@ -24,5 +24,5 @@ docker exec rss-python conda install beautifulsoup4
 docker exec rss-python conda install lxml
 docker exec rss-python conda install psycopg2
 
-docker exec -it rss-postgres psql -U postgres -f create_db.sql
+docker exec -it rss-postgres psql -U postgres -d audioboom -f create_db.sql
 docker exec rss-python python main.py
