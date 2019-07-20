@@ -39,7 +39,7 @@ def persist_taste_of_india_record(conn,data):
 def process_records(content,conn):
 	record_count	= len(content)
 
-	current_max		= 0#get_max_records(conn,get_max_query)
+	current_max		= get_max_records(conn,get_max_query)
 	print('Current Max : ',current_max)
 
 	records = {}
